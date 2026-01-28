@@ -1,8 +1,19 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
 
 const Index = () => {
+  const [currentTrack, setCurrentTrack] = useState<number | null>(null);
+
+  const songs = [
+    { title: "Владимирский централ", artist: "Михаил Круг", duration: "3:42" },
+    { title: "Мурка", artist: "Аркадий Северный", duration: "2:58" },
+    { title: "Вальс-бостон", artist: "Александр Розенбаум", duration: "4:15" },
+    { title: "Кони привередливые", artist: "Владимир Высоцкий", duration: "3:28" },
+    { title: "Гоп-стоп", artist: "Александр Розенбаум", duration: "3:52" },
+  ];
+
   const program = [
     { time: "19:00", title: "Открытие концерта", artist: "Ведущий" },
     { time: "19:15", title: "Золотые хиты", artist: "Михаил Круг" },
@@ -226,6 +237,69 @@ const Index = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24 px-4 bg-gradient-to-b from-[#0f0f0f] to-black">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16 animate-fade-in">
+            <h2 className="text-5xl md:text-6xl font-bold text-[#f5f5dc] mb-4">Послушайте</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#d4af37] to-[#f4d03f] mx-auto mb-4" />
+            <p className="text-[#f5f5dc]/70 text-lg">Популярные композиции вечера</p>
+          </div>
+
+          <div className="space-y-4">
+            {songs.map((song, index) => (
+              <Card
+                key={index}
+                className="bg-[#1a1a1a] border-[#2a2a2a] hover:border-[#d4af37] transition-all duration-300 animate-fade-in"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-6">
+                    <Button
+                      size="icon"
+                      className={`rounded-full w-14 h-14 transition-all ${
+                        currentTrack === index
+                          ? 'bg-[#d4af37] hover:bg-[#f4d03f]'
+                          : 'bg-gradient-to-r from-[#d4af37] to-[#f4d03f] hover:opacity-90'
+                      }`}
+                      onClick={() => setCurrentTrack(currentTrack === index ? null : index)}
+                    >
+                      <Icon
+                        name={currentTrack === index ? "Pause" : "Play"}
+                        className="text-black"
+                        size={24}
+                      />
+                    </Button>
+
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold text-[#f5f5dc] mb-1">
+                        {song.title}
+                      </h3>
+                      <p className="text-[#f5f5dc]/70">{song.artist}</p>
+                    </div>
+
+                    <div className="flex items-center gap-4">
+                      <span className="text-[#d4af37] font-mono">{song.duration}</span>
+                      <Icon name="Music2" className="text-[#d4af37]" size={24} />
+                    </div>
+                  </div>
+
+                  {currentTrack === index && (
+                    <div className="mt-6">
+                      <div className="relative h-2 bg-[#2a2a2a] rounded-full overflow-hidden">
+                        <div
+                          className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#d4af37] to-[#f4d03f] rounded-full animate-pulse"
+                          style={{ width: '45%' }}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
