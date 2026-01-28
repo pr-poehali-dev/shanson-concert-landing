@@ -59,7 +59,7 @@ const Index = () => {
           </div>
           
           <p className="text-2xl md:text-3xl text-[#f5f5dc] mb-4 font-light">
-            Классика жанра в исполнении легендарных артистов
+            Классика жанра в исполнении Дмитрия Макарова
           </p>
           
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 my-12">
